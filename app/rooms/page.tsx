@@ -78,7 +78,7 @@ export default function RoomsPage() {
                         <div className="p-8">
                             <div className="flex justify-between items-center mb-4">
                                 <h2 className="text-2xl text-white font-serif">{room.name}</h2>
-                                <p className="text-accent font-serif text-xl">${room.price_per_night}<span className="text-sm text-gray-500">/night</span></p>
+                                <p className="text-accent font-serif text-xl">₦{room.price_per_night}<span className="text-sm text-gray-500">/night</span></p>
                             </div>
                             <p className="text-gray-400 mb-6 line-clamp-2">{room.description}</p>
                             <div className="flex space-x-4 mb-8 text-gray-400">

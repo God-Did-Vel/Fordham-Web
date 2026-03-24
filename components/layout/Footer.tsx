@@ -34,7 +34,7 @@ export default function Footer() {
                 {/* Brand */}
                 <div className="space-y-4">
                     <Link href="/" className="text-2xl font-serif text-accent tracking-widest uppercase block">
-                        N&B Italian Hotel<span className="text-white"></span>
+                        Fordham Suites<span className="text-white"></span>
                     </Link>
                     <p className="text-gray-400 font-light leading-relaxed">
                         Experience the ultimate luxury. Our hotel offers unparalleled views, exquisite dining, and world-class service.
@@ -58,7 +58,7 @@ export default function Footer() {
                     <ul className="space-y-3 font-light text-gray-400">
                         <li>123 Luxury Ave, NY 10012</li>
                         <li>+1 (234) 567 8900</li>
-                        <li>info@nb-italian-hotel.com</li>
+                        <li>info@fordham-suites.com</li>
                     </ul>
                 </div>
 
@@ -95,7 +95,7 @@ export default function Footer() {
             </div>
 
             <div className="container mx-auto px-6 lg:px-12 mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between text-gray-500 text-xs font-light">
-                <p>&copy; {new Date().getFullYear()} N&B Italian Hotel. All rights reserved.</p>
+                <p>&copy; {new Date().getFullYear()} Fordham Suites. All rights reserved.</p>
                 <div className="flex space-x-6 mt-4 md:mt-0">
                     <a href="#" className="hover:text-accent transition-colors"><Instagram size={18} /></a>
                     <a href="#" className="hover:text-accent transition-colors"><Facebook size={18} /></a>

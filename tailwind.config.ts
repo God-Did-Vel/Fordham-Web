@@ -15,10 +15,10 @@ const config: Config = {
         accent: "#d4af37", 
       },
        fontFamily: {
-        sans: ['"Lato"', 'sans-serif'],
-        serif: ['"Lato"', 'serif'],
-        mono: ['"Lato"', 'monospace'],
-        playfair: ['"Lato"', 'serif'],
+        sans: ['"voga"', 'sans-serif'],
+        serif: ['"voga"', 'serif'],
+        mono: ['"voga"', 'monospace'],
+        playfair: ['"voga"', 'serif'],
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

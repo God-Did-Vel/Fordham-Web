@@ -49,7 +49,7 @@ export default function Amenities() {
                         </motion.h2>
                     </div>
                     <motion.p
-                        className="text-gray-400 font-light max-w-md mt-6 md:mt-0"
+                        className="text-gray-400 font-light max-w-lg mt-6 md:mt-0 font-mono"
                         initial={{ opacity: 0, x: 20 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}

@@ -8,8 +8,8 @@ import SplashScreen from "@/components/ui/SplashScreen";
 import ClientLayoutWrapper from "@/components/layout/ClientLayoutWrapper";
 
 export const metadata: Metadata = {
-  title: "N&B Italian Hotel | Premium Luxury Hotel",
-  description: "Experience the ultimate luxury at N&B Italian Hotel.",
+  title: "Fordham Suites | Premium Luxury Hotel",
+  description: "Experience the ultimate luxury at Fordham Suites.",
   icons: {
     icon: "/favicon.ico",
     apple: "/apple-touch-icon.png",

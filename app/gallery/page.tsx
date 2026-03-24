@@ -15,7 +15,7 @@ export default function GalleryPage() {
         <div className="pt-32 pb-20 bg-black min-h-screen">
             <div className="container mx-auto px-6 lg:px-12 text-center mb-16">
                 <h1 className="text-4xl md:text-6xl font-serif text-white mb-4">Our Gallery</h1>
-                <p className="text-gray-400 max-w-2xl mx-auto">Take a glimpse into the beautiful aesthetics and atmosphere of N&B Italian Hotel.</p>
+                <p className="text-gray-400 max-w-2xl mx-auto">Take a glimpse into the beautiful aesthetics and atmosphere of Fordham Suites.</p>
             </div>
 
             <div className="container mx-auto px-6 lg:px-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

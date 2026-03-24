@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Lato:wght@300;400;700&display=swap');
+@import url('https://fonts.cdnfonts.com/css/voga');
 
 @tailwind base;
 @tailwind components;
@@ -18,7 +18,7 @@
 
 html {
   scroll-behavior: smooth;
-  font-family: 'Lato', system-ui, sans-serif;
+  font-family: 'voga', system-ui, sans-serif;
 }
 
 body {
@@ -32,15 +32,15 @@ body {
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: 'Lato', system-ui, sans-serif;
+  font-family: 'voga', system-ui, sans-serif;
   font-size: 16px;
   line-height: 1.6;
 }
 
 /* Typography */
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Lato', system-ui, sans-serif;
-  font-weight: 50;
+h1 {
+  font-family: 'voga', system-ui, sans-serif;
+  /* font-weight: 500; */
   color: #f5f5f5;
 }
 
@@ -76,14 +76,9 @@ a:hover {
   background: #555;
 }
 
-/* Button Styles */
-button {
-  font-family: 'Lato', system-ui, sans-serif;
-}
 
 /* Input Styles */
 input, textarea, select {
-  font-family: 'Lato', system-ui, sans-serif;
   color: #f5f5f5;
 }
 

@@ -5,9 +5,9 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const SLIDES = [
-    "https://res.cloudinary.com/duweg8kpv/image/upload/v1772119962/d5_okuxgh.jpg",
+    "https://res.cloudinary.com/duweg8kpv/image/upload/v1774303408/f9_xenxet.jpg",
     "https://res.cloudinary.com/duweg8kpv/image/upload/v1772988986/360_F_692511356_6jleOpKpvIMrGRtXo7TZk70aD8ePbZvQ_q7ahz9.jpg",
-    "https://res.cloudinary.com/duweg8kpv/image/upload/v1771601790/N_B4_tjbkfy.jpg"
+    "https://res.cloudinary.com/duweg8kpv/image/upload/v1774299834/f2_hdwzqg.jpg"
 ];
 
 export default function Hero() {
@@ -46,7 +46,7 @@ export default function Hero() {
             {/* Content */}
             <div className="relative z-10 text-center px-6">
                 <motion.span
-                    className="block text-accent uppercase tracking-[0.3em] text-lg mb-4 font-light"
+                    className="block text-accent uppercase tracking-[0.3em] text-sm mb-1 font-light"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.5 }}
@@ -60,11 +60,11 @@ export default function Hero() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1, delay: 0.7 }}
                 >
-                    N&B Italian Hotel
+                    Fordham Suites
                 </motion.h1>
 
                 <motion.p
-                    className="text-gray-300 font-light max-w-2xl mx-auto mb-10 text-lg md:text-xl"
+                    className="text-gray-400  max-w-1xl mx-auto mb-10 text-lg md:text-xl"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 1, delay: 1 }}

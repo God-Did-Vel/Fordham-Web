@@ -365,7 +365,7 @@ export default function AdminDashboard() {
             {/* Header */}
             <header className="sticky top-0 z-40 bg-[#0a0a0a] border-b border-white/5">
                 <div className="px-6 py-4 flex justify-between items-center">
-                    <h1 className="text-2xl font-serif text-accent tracking-widest uppercase">N&B Admin</h1>
+                    <h1 className="text-2xl font-serif text-accent tracking-widest uppercase">Fordham Suites Admin</h1>
                     <div className="flex items-center gap-4">
                         <div className="hidden sm:block text-sm text-gray-400">
                             👋 Welcome, <span className="text-white font-semibold">{adminName}</span>
@@ -467,7 +467,7 @@ export default function AdminDashboard() {
                                         <div>
                                             <p className="text-gray-500 text-sm uppercase tracking-wider">Total Revenue</p>
                                             <h3 className="text-3xl font-bold text-white mt-2">
-                                                ${totalRevenue.toLocaleString()}
+                                                 ₦{totalRevenue.toLocaleString()}
                                             </h3>
                                         </div>
                                         <span className="text-4xl"></span>
@@ -611,7 +611,7 @@ export default function AdminDashboard() {
                                                     <td className="px-6 py-4">
                                                         {new Date(booking.check_out_date).toLocaleDateString()}
                                                     </td>
-                                                    <td className="px-6 py-4">${booking.total_amount.toLocaleString()}</td>
+                                                    <td className="px-6 py-4"> ₦{booking.total_amount.toLocaleString()}</td>
                                                     <td className="px-6 py-4">
                                                         <span
                                                             className={`px-3 py-1 text-xs rounded-full ${

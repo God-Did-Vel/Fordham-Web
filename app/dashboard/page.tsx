@@ -273,7 +273,7 @@ export default function ClientDashboard() {
                                 Welcome back, {user.name}
                             </h1>
                             <p className="text-gray-400 text-sm">
-                                N&B Rewards Member since {memberSince}
+                                Fordham Suites Rewards Member since {memberSince}
                             </p>
                         </div>
                     </div>
@@ -350,7 +350,7 @@ export default function ClientDashboard() {
                                                                     Per Night
                                                                 </span>
                                                                 <span className="text-white font-serif">
-                                                                    ${booking.room_id?.price_per_night?.toLocaleString() || "0"}
+                                                                    ₦{booking.room_id?.price_per_night?.toLocaleString() || "0"}
                                                                 </span>
                                                             </div>
                                                             <div className="bg-[#1a1a1a] px-3 py-1.5 rounded flex flex-col">
@@ -358,7 +358,7 @@ export default function ClientDashboard() {
                                                                     Total Est.
                                                                 </span>
                                                                 <span className="text-accent font-serif">
-                                                                    ${booking.total_amount?.toLocaleString() || "0"}
+                                                                     ₦{booking.total_amount?.toLocaleString() || "0"}
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -467,7 +467,7 @@ export default function ClientDashboard() {
                                                                     Per Night
                                                                 </span>
                                                                 <span className="text-white font-serif">
-                                                                    ${booking.room_id?.price_per_night?.toLocaleString() || "0"}
+                                                                    ₦{booking.room_id?.price_per_night?.toLocaleString() || "0"}
                                                                 </span>
                                                             </div>
                                                             <div className="bg-[#1a1a1a] px-3 py-1.5 rounded flex flex-col">
@@ -475,7 +475,7 @@ export default function ClientDashboard() {
                                                                     Total Est.
                                                                 </span>
                                                                 <span className="text-accent font-serif">
-                                                                    ${booking.total_amount?.toLocaleString() || "0"}
+                                                                    ₦{booking.total_amount?.toLocaleString() || "0"}
                                                                 </span>
                                                             </div>
                                                         </div>

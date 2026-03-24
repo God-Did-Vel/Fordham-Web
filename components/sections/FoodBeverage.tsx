@@ -31,7 +31,7 @@ export default function FoodBeverage() {
                         viewport={{ once: true }}
                         transition={{ delay: 0.2 }}
                     >
-                        Unlike other hotels, N&amp;B Italian Hotel prides itself on offering our guests in-house award-winning restaurants and our food philosophy is simple: seasonal, ingredients to showcase the region's finest flavours.
+                        Unlike other hotels, Fordham Suites prides itself on offering our guests in-house award-winning restaurants and our food philosophy is simple: seasonal, ingredients to showcase the region's finest flavours.
                     </motion.p>
                     <motion.div
                         initial={{ opacity: 0 }}

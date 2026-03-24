@@ -46,7 +46,7 @@ export default function ClientLogin() {
 
             <div className="w-full max-w-md bg-[#0a0a0a]/90 backdrop-blur-md p-10 border border-white/10 rounded-lg relative z-10">
                 <div className="text-center mb-10">
-                    <h1 className="text-3xl font-serif text-accent tracking-widest uppercase mb-4">N&B Italian Hotel<span className="text-white">.</span></h1>
+                    <h1 className="text-3xl font-serif text-accent tracking-widest uppercase mb-4">Fordham Suites<span className="text-white"></span></h1>
                     <p className="text-sm tracking-wide text-gray-400 font-light leading-relaxed px-4">
                         Guest Portal. Sign in to view your bookings and manage your profile.
                     </p>

@@ -179,7 +179,7 @@ export default function BookPage() {
 
             <div className="container mx-auto px-6 lg:px-12 text-center mb-16">
                 <h1 className="text-4xl md:text-6xl font-serif text-white mb-4">Make a Reservation</h1>
-                <p className="text-gray-400 max-w-2xl mx-auto">Book your stay at N&B Italian Hotel and prepare for an unforgettable luxury experience.</p>
+                <p className="text-gray-400 max-w-2xl mx-auto">Book your stay at Fordham Suites and prepare for an unforgettable luxury experience.</p>
             </div>
 
             <div className="container mx-auto px-6 lg:px-12 max-w-4xl relative">
@@ -193,7 +193,7 @@ export default function BookPage() {
                             <CheckCircle size={80} className="text-accent mb-6" />
                             <h2 className="text-3xl font-serif text-white mb-4">Congratulations! 🎉</h2>
                             <p className="text-gray-400 font-light text-sm mb-6 max-w-lg">
-                                Your room has been successfully reserved. Thanks for choosing N&B Italian Hotel for your luxury getaway.
+                                Your room has been successfully reserved. Thanks for choosing Fordham Suites for your luxury getaway.
                             </p>
 
                             {paymentDetails && (

@@ -26,7 +26,7 @@ export default function About() {
                             viewport={{ once: true, margin: "-100px" }}
                             transition={{ duration: 0.8 }}
                         >
-                            <h4 className="text-accent uppercase tracking-[0.3em] text-sm mb-4 font-light">The N&B Italian Hotel Experience</h4>
+                            <h4 className="text-accent uppercase tracking-[0.3em] text-sm mb-4 font-light">Fordham Suites Experience</h4>
                             <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-white mb-8 leading-tight">
                                 A Legacy of <br />
                                 <span className="text-gray-400 italic">Unrivaled Luxury</span>
@@ -34,7 +34,7 @@ export default function About() {
 
                             <div className="space-y-6 text-gray-400 font-light leading-relaxed mb-10">
                                 <p>
-                                    Since its inception, N&B Italian Hotel has redefined the art of hospitality. Nestled in breathtaking surroundings, our establishment combines classical elegance with state-of-the-art modern comforts.
+                                    Since its inception, Fordham Suites has redefined the art of hospitality. Nestled in breathtaking surroundings, our establishment combines classical elegance with state-of-the-art modern comforts.
                                 </p>
                                 <p>
                                     Every detail, from the meticulously curated artwork adorning our halls to the bespoke furnishings in each suite, has been carefully selected to ensure an unforgettable stay. We believe luxury is not just seen, but felt.

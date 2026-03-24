@@ -20,7 +20,7 @@ export default function SpaBookingsManagement() {
         <div>
             <div className="mb-10">
                 <h2 className="text-3xl font-serif text-white mb-2">Spa Appointments</h2>
-                <p className="text-gray-400 font-light">Review exclusive N&B Spa bookings and requests.</p>
+                <p className="text-gray-400 font-light">Review exclusive Fordham Suites Spa bookings and requests.</p>
             </div>
 
             {isLoading ? (

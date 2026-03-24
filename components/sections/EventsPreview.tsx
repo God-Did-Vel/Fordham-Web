@@ -35,7 +35,7 @@ export default function EventsPreview() {
                             <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=800&auto=format&fit=crop" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Summit" />
                         </div>
                         <h3 className="font-serif text-xl mb-2">The Caterer Marketing & PR Summit</h3>
-                        <p className="text-[10px] uppercase tracking-widest text-white/50">07 Oct 2026<br />N&amp;B Italian Hotel, London</p>
+                        <p className="text-[10px] uppercase tracking-widest text-white/50">07 Oct 2026<br />Fordham Suites Benin</p>
                     </div>
 
                     <div className="text-center group">
@@ -43,7 +43,7 @@ export default function EventsPreview() {
                             <img src="https://res.cloudinary.com/duweg8kpv/image/upload/v1772988986/360_F_692511356_6jleOpKpvIMrGRtXo7TZk70aD8ePbZvQ_q7ahz9.jpg" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Summit" />
                         </div>
                         <h3 className="font-serif text-xl mb-2">Envato LLC Marketing & PR Summit</h3>
-                        <p className="text-[10px] uppercase tracking-widest text-white/50">10 Nov 2026<br />N&amp;B Italian Hotel, Melbourne</p>
+                        <p className="text-[10px] uppercase tracking-widest text-white/50">10 Nov 2026<br />Fordham Suites Benine</p>
                     </div>
 
                     <div className="text-center group">
@@ -51,7 +51,7 @@ export default function EventsPreview() {
                             <img src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=800&auto=format&fit=crop" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Summit" />
                         </div>
                         <h3 className="font-serif text-xl mb-2">3rd Natro Hosting & Summit</h3>
-                        <p className="text-[10px] uppercase tracking-widest text-white/50">30 Aug 2026<br />N&amp;B Italian Hotel, Istanbul</p>
+                        <p className="text-[10px] uppercase tracking-widest text-white/50">30 Aug 2026<br />Fordham Suites Benin</p>
                     </div>
                 </div>
 

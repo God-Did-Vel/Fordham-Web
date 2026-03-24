@@ -73,7 +73,7 @@ export default function FeaturedRooms() {
                                 />
                                 <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500" />
                                 <div className="absolute top-4 right-4 bg-black/80 backdrop-blur-sm text-white px-4 py-2 text-sm font-serif">
-                                    ${room.price} <span className="text-xs text-gray-400 font-sans">/ Night</span>
+                                    ₦{room.price} <span className="text-xs text-gray-400 font-sans">/ Night</span>
                                 </div>
                             </div>
 

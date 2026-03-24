@@ -74,7 +74,7 @@ export default function AdminLogin() {
                     {/* Header */}
                     <div className="text-center mb-10">
                         <h1 className="text-3xl font-serif text-accent tracking-widest uppercase mb-2">
-                            N&B Italian Hotel
+                            Fordham Suites
                             <span className="text-white">.</span>
                         </h1>
                         <p className="text-xs uppercase tracking-widest text-gray-500 font-semibold">

@@ -40,7 +40,7 @@ export default function SplashScreen({ children }: { children: React.ReactNode }
                             transition={{ delay: 0.5, duration: 0.8 }}
                             className="font-playfair text-3xl md:text-4xl lg:text-5xl text-gold text-center px-4 leading-relaxed tracking-wider text-[#d4af37]"
                         >
-                            Experience Luxury at N&B italian hotels <br /> your home of comfort
+                            Experience Luxury at Fordham Suites <br /> your home of comfort
                         </motion.h1>
                     </motion.div>
                 )}
