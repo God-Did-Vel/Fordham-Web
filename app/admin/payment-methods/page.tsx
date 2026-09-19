@@ -3,174 +3,211 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { apiClient } from "@/lib/api";
-import { Loader2, Plus, Trash2, Check, X } from "lucide-react";
+import { Loader2, Plus, Trash2, Crown, CreditCard } from "lucide-react";
 import { toast, Toaster } from "react-hot-toast";
 
+const inputClass =
+  "w-full bg-surface-dark border border-[rgba(212,175,55,0.1)] text-foreground " +
+  "px-4 py-3 font-body text-[0.82rem] font-light placeholder:text-text-muted " +
+  "focus:outline-none focus:border-accent transition-colors duration-300";
+const labelClass =
+  "block font-body text-[0.58rem] font-semibold uppercase tracking-[0.35em] text-text-muted mb-2";
+
 export default function AdminPaymentMethods() {
-    const [isAdding, setIsAdding] = useState(false);
-    const [newProvider, setNewProvider] = useState("");
-    const [newDetails, setNewDetails] = useState("");
-    const [isSaving, setIsSaving] = useState(false);
+  const [isAdding,     setIsAdding]     = useState(false);
+  const [newProvider,  setNewProvider]  = useState("");
+  const [newDetails,   setNewDetails]   = useState("");
+  const [isSaving,     setIsSaving]     = useState(false);
 
-    const { data: methods, isLoading, refetch } = useQuery({
-        queryKey: ["admin-payment-methods"],
-        queryFn: async () => {
-            const token = localStorage.getItem("adminToken");
-            const { data } = await apiClient.get("/api/payment-methods/admin", {
-                headers: { Authorization: `Bearer ${token}` }
-            });
-            return data;
-        }
-    });
+  const { data: methods, isLoading, refetch } = useQuery({
+    queryKey: ["admin-payment-methods"],
+    queryFn: async () => {
+      const token = localStorage.getItem("adminToken");
+      const { data } = await apiClient.get("/api/payment-methods/admin", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      return data;
+    },
+  });
 
-    const handleAddMethod = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setIsSaving(true);
-        try {
-            const token = localStorage.getItem("adminToken");
-            await apiClient.post("/api/payment-methods", {
-                provider: newProvider,
-                details: newDetails,
-                isActive: true
-            }, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
-            toast.success("Payment method added");
-            setNewProvider("");
-            setNewDetails("");
-            setIsAdding(false);
-            refetch();
-        } catch (error: any) {
-            toast.error(error.response?.data?.message || "Failed to add method");
-        } finally {
-            setIsSaving(false);
-        }
-    };
+  const handleAddMethod = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSaving(true);
+    try {
+      const token = localStorage.getItem("adminToken");
+      await apiClient.post("/api/payment-methods", { provider: newProvider, details: newDetails, isActive: true }, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      toast.success("Payment method added.");
+      setNewProvider(""); setNewDetails(""); setIsAdding(false);
+      refetch();
+    } catch (err: any) {
+      toast.error(err.response?.data?.message || "Failed to add method.");
+    } finally {
+      setIsSaving(false);
+    }
+  };
 
-    const handleToggleActive = async (id: string, currentStatus: boolean) => {
-        try {
-            const token = localStorage.getItem("adminToken");
-            await apiClient.put(`/api/payment-methods/${id}`, { isActive: !currentStatus }, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
-            toast.success(`Payment method ${!currentStatus ? 'activated' : 'deactivated'}`);
-            refetch();
-        } catch (error: any) {
-            toast.error(error.response?.data?.message || "Failed to update status");
-        }
-    };
+  const handleToggleActive = async (id: string, current: boolean) => {
+    try {
+      const token = localStorage.getItem("adminToken");
+      await apiClient.put(`/api/payment-methods/${id}`, { isActive: !current }, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      toast.success(`Method ${!current ? "activated" : "deactivated"}.`);
+      refetch();
+    } catch (err: any) {
+      toast.error(err.response?.data?.message || "Failed to update.");
+    }
+  };
 
-    const handleDelete = async (id: string) => {
-        if (!confirm("Are you sure you want to delete this payment method?")) return;
-        try {
-            const token = localStorage.getItem("adminToken");
-            await apiClient.delete(`/api/payment-methods/${id}`, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
-            toast.success("Payment method deleted");
-            refetch();
-        } catch (error: any) {
-            toast.error(error.response?.data?.message || "Failed to delete method");
-        }
-    };
+  const handleDelete = async (id: string) => {
+    if (!confirm("Delete this payment method?")) return;
+    try {
+      const token = localStorage.getItem("adminToken");
+      await apiClient.delete(`/api/payment-methods/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      toast.success("Payment method deleted.");
+      refetch();
+    } catch (err: any) {
+      toast.error(err.response?.data?.message || "Failed to delete.");
+    }
+  };
 
-    return (
-        <div>
-            <Toaster position="top-right" toastOptions={{ style: { background: '#111', color: '#fff', border: '1px solid #333' } }} />
+  return (
+    <div className="space-y-8">
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          style: { background: "#1a1714", color: "#f5f0e6", border: "1px solid rgba(212,175,55,0.2)" },
+        }}
+      />
 
-            <div className="flex justify-between items-center mb-10">
-                <div>
-                    <h2 className="text-3xl font-serif text-white mb-2">Payment Methods</h2>
-                    <p className="text-gray-400 font-light">Configure how clients can pay for their bookings.</p>
+      {/* Header */}
+      <div className="flex items-end justify-between gap-4 flex-wrap">
+        <div className="space-y-1">
+          <div className="flex items-center gap-3 mb-2">
+            <Crown size={14} className="text-accent" strokeWidth={1.5} />
+            <span className="section-label">Daddy Wealth Hotel &amp; Suites</span>
+          </div>
+          <h1 className="font-display text-[2rem] font-light text-foreground">Payment Methods</h1>
+          <p className="font-body text-[0.82rem] font-light text-text-muted">
+            Configure how guests can pay for their reservations.
+          </p>
+        </div>
+        <button
+          onClick={() => setIsAdding((v) => !v)}
+          className={isAdding
+            ? "btn-luxury text-[0.6rem] flex items-center gap-2"
+            : "btn-luxury-filled text-[0.6rem] flex items-center gap-2"
+          }
+        >
+          {isAdding ? "Cancel" : <><Plus size={13} strokeWidth={2} /> Add Method</>}
+        </button>
+      </div>
+
+      {/* Add form */}
+      {isAdding && (
+        <div className="bg-surface-card border border-[rgba(212,175,55,0.12)] p-8">
+          <h3 className="font-display text-[1.3rem] font-light text-foreground mb-6">
+            Add New Payment Method
+          </h3>
+          <form onSubmit={handleAddMethod} className="space-y-5">
+            <div>
+              <label className={labelClass}>Provider Name *</label>
+              <input
+                type="text"
+                required
+                value={newProvider}
+                onChange={(e) => setNewProvider(e.target.value)}
+                className={inputClass}
+                placeholder="e.g. Bank Transfer, USDT, Opay"
+              />
+            </div>
+            <div>
+              <label className={labelClass}>Payment Details / Instructions *</label>
+              <textarea
+                required
+                rows={4}
+                value={newDetails}
+                onChange={(e) => setNewDetails(e.target.value)}
+                className={`${inputClass} resize-none`}
+                placeholder={"Account Name: Daddy Wealth Hotel and Suites\nAccount Number: 0123456789\nBank: First Bank Nigeria"}
+              />
+            </div>
+            <div className="flex justify-end">
+              <button
+                type="submit"
+                disabled={isSaving}
+                className="btn-luxury-filled text-[0.6rem] flex items-center gap-2 disabled:opacity-40"
+              >
+                {isSaving ? <Loader2 size={13} className="animate-spin" /> : "Save Method"}
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
+
+      {/* Methods grid */}
+      {isLoading ? (
+        <div className="flex justify-center py-24">
+          <Loader2 size={24} className="text-accent animate-spin" />
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {methods?.map((method: any) => (
+            <div
+              key={method._id}
+              className="group relative bg-surface-card border border-[rgba(212,175,55,0.07)]
+                         hover:border-[rgba(212,175,55,0.2)] transition-all duration-400 p-7"
+            >
+              {/* Header */}
+              <div className="flex items-start justify-between mb-5 pb-5 border-b border-[rgba(212,175,55,0.07)]">
+                <div className="flex items-center gap-3">
+                  <CreditCard size={15} className="text-accent" strokeWidth={1.5} />
+                  <h3 className="font-display text-[1.15rem] font-light text-foreground">{method.provider}</h3>
                 </div>
                 <button
-                    onClick={() => setIsAdding(!isAdding)}
-                    className="flex items-center text-xs uppercase tracking-widest font-bold bg-white text-black px-6 py-3 rounded hover:bg-gray-200 transition-colors"
+                  onClick={() => handleToggleActive(method._id, method.isActive)}
+                  className={`font-body text-[0.58rem] font-semibold uppercase tracking-[0.25em] px-3 py-1.5 transition-colors duration-300 ${
+                    method.isActive
+                      ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hover:bg-red-500/10 hover:text-red-400 hover:border-red-500/20"
+                      : "bg-white/5 text-text-muted border border-white/10 hover:bg-emerald-500/10 hover:text-emerald-400 hover:border-emerald-500/20"
+                  }`}
                 >
-                    {isAdding ? "Cancel" : <><Plus size={16} className="mr-2" /> Add Method</>}
+                  {method.isActive ? "Active" : "Inactive"}
                 </button>
+              </div>
+
+              {/* Details */}
+              <p className="font-body text-[0.8rem] font-light text-text-muted leading-relaxed whitespace-pre-wrap">
+                {method.details}
+              </p>
+
+              {/* Delete button */}
+              <button
+                onClick={() => handleDelete(method._id)}
+                title="Delete method"
+                className="absolute bottom-5 right-5 text-text-faint hover:text-red-400
+                           transition-colors duration-300 opacity-0 group-hover:opacity-100"
+              >
+                <Trash2 size={14} strokeWidth={1.5} />
+              </button>
             </div>
+          ))}
 
-            {isAdding && (
-                <div className="bg-[#141414] border border-white/5 rounded-lg p-6 mb-8">
-                    <h3 className="text-lg font-serif text-white mb-4">Add New Payment Method</h3>
-                    <form onSubmit={handleAddMethod} className="space-y-4">
-                        <div>
-                            <label className="block text-xs uppercase tracking-wider text-gray-400 mb-2">Provider (e.g., Bank Transfer, Bitcoin)</label>
-                            <input
-                                type="text"
-                                value={newProvider}
-                                onChange={(e) => setNewProvider(e.target.value)}
-                                required
-                                className="w-full bg-[#0a0a0a] border border-white/10 text-white p-3 focus:outline-none focus:border-accent transition-colors"
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-xs uppercase tracking-wider text-gray-400 mb-2">Payment Details / Instructions</label>
-                            <textarea
-                                value={newDetails}
-                                onChange={(e) => setNewDetails(e.target.value)}
-                                required
-                                rows={4}
-                                className="w-full bg-[#0a0a0a] border border-white/10 text-white p-3 focus:outline-none focus:border-accent transition-colors"
-                                placeholder="Account Name: N&B Hotel&#10;Account Number: 1234567890&#10;Bank: Chase Bank"
-                            />
-                        </div>
-                        <div className="flex justify-end pt-2">
-                            <button
-                                type="submit"
-                                disabled={isSaving}
-                                className="flex justify-center items-center bg-accent text-black font-semibold px-8 py-3 uppercase tracking-wider hover:bg-white transition-colors disabled:opacity-50"
-                            >
-                                {isSaving ? <Loader2 className="animate-spin w-5 h-5" /> : 'Save Method'}
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            )}
-
-            {isLoading ? (
-                <div className="flex justify-center py-20">
-                    <Loader2 className="w-8 h-8 text-accent animate-spin" />
-                </div>
-            ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {methods?.map((method: any) => (
-                        <div key={method._id} className="bg-[#141414] border border-white/5 rounded-lg p-6 relative group">
-                            <div className="flex justify-between items-start mb-4 border-b border-white/5 pb-4">
-                                <h3 className="text-xl font-serif text-white">{method.provider}</h3>
-                                <div className="flex items-center space-x-2">
-                                    <button
-                                        onClick={() => handleToggleActive(method._id, method.isActive)}
-                                        className={`px-3 py-1 rounded text-xs uppercase tracking-wider font-bold transition-colors ${method.isActive ? 'bg-green-500/10 text-green-500 hover:bg-red-500/10 hover:text-red-500' : 'bg-gray-500/10 text-gray-500 hover:bg-green-500/10 hover:text-green-500'}`}
-                                        title={method.isActive ? "Click to Deactivate" : "Click to Activate"}
-                                    >
-                                        {method.isActive ? "Active" : "Inactive"}
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div className="mb-6 whitespace-pre-wrap text-gray-400 text-sm font-light leading-relaxed">
-                                {method.details}
-                            </div>
-
-                            <button
-                                onClick={() => handleDelete(method._id)}
-                                className="absolute bottom-6 right-6 text-gray-600 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"
-                                title="Delete Method"
-                            >
-                                <Trash2 size={18} />
-                            </button>
-                        </div>
-                    ))}
-
-                    {(!methods || methods.length === 0) && (
-                        <div className="col-span-full py-12 text-center text-gray-500 font-light bg-[#141414] border border-white/5 rounded-lg">
-                            No payment methods configured yet.
-                        </div>
-                    )}
-                </div>
-            )}
+          {(!methods || methods.length === 0) && (
+            <div className="col-span-full py-16 text-center border border-dashed border-[rgba(212,175,55,0.1)]
+                            flex flex-col items-center gap-4">
+              <CreditCard size={28} className="text-text-faint" strokeWidth={1} />
+              <p className="font-body text-[0.8rem] font-light text-text-muted">
+                No payment methods configured yet.
+              </p>
+            </div>
+          )}
         </div>
-    );
+      )}
+    </div>
+  );
 }

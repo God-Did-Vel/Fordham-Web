@@ -273,7 +273,7 @@ export default function ClientDashboard() {
                                 Welcome back, {user.name}
                             </h1>
                             <p className="text-gray-400 text-sm">
-                                Fordham Suites Rewards Member since {memberSince}
+                                Daddy Wealth Hotel &amp; Suites Member since {memberSince}
                             </p>
                         </div>
                     </div>

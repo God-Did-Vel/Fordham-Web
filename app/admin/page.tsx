@@ -365,7 +365,7 @@ export default function AdminDashboard() {
             {/* Header */}
             <header className="sticky top-0 z-40 bg-[#0a0a0a] border-b border-white/5">
                 <div className="px-6 py-4 flex justify-between items-center">
-                    <h1 className="text-2xl font-serif text-accent tracking-widest uppercase">Fordham Suites Admin</h1>
+                    <h1 className="text-2xl font-serif text-accent tracking-widest uppercase">Daddy Wealth Hotel Admin</h1>
                     <div className="flex items-center gap-4">
                         <div className="hidden sm:block text-sm text-gray-400">
                             👋 Welcome, <span className="text-white font-semibold">{adminName}</span>

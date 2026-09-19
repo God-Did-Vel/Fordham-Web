@@ -3,152 +3,162 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { apiClient } from "@/lib/api";
-import { Loader2 } from "lucide-react";
+import { Loader2, Crown, ArrowRight, Eye, EyeOff } from "lucide-react";
 import toast, { Toaster } from "react-hot-toast";
 
 export default function AdminLogin() {
-    const router = useRouter();
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+  const [email,     setEmail]     = useState("");
+  const [password,  setPassword]  = useState("");
+  const [showPass,  setShowPass]  = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setIsLoading(true);
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    try {
+      const { data } = await apiClient.post("/api/admin/login", { email, password });
+      if (data.token) {
+        localStorage.setItem("adminToken", data.token);
+        localStorage.setItem("adminId",    data._id);
+        localStorage.setItem("adminName",  data.name);
+        localStorage.setItem("adminEmail", data.email);
+        toast.success("Access granted. Redirecting…");
+        setTimeout(() => { window.location.href = "/admin"; }, 900);
+      } else {
+        toast.error("Authentication failed. Please try again.");
+        setIsLoading(false);
+      }
+    } catch (error: any) {
+      toast.error(
+        error.response?.data?.message || "Invalid credentials. Please check and try again."
+      );
+      setIsLoading(false);
+    }
+  };
 
-        try {
-            console.log("Attempting login with:", { email, password });
+  return (
+    <div
+      className="min-h-screen flex items-center justify-center p-6 relative bg-surface-void bg-cover bg-center"
+      style={{
+        backgroundImage:
+          "url('https://images.unsplash.com/photo-1566073771259-6a8506099945?q=85&w=1800&auto=format&fit=crop')",
+      }}
+    >
+      <Toaster
+        position="top-center"
+        toastOptions={{
+          style: { background: "#1a1714", color: "#f5f0e6", border: "1px solid rgba(212,175,55,0.2)" },
+          duration: 4000,
+        }}
+      />
 
-            // Call backend: POST /api/admin/login
-            const { data } = await apiClient.post("/api/admin/login", {
-                email,
-                password,
-            });
+      {/* Dark overlay */}
+      <div className="absolute inset-0 bg-surface-void/90 backdrop-blur-[3px]" />
 
-            console.log("Login response:", data);
+      {/* Subtle gold glow */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-[0.04]"
+        style={{ background: "radial-gradient(ellipse at 50% 60%, #d4af37 0%, transparent 60%)" }}
+      />
 
-            if (data.token) {
-                // Store token and admin info in localStorage
-                localStorage.setItem("adminToken", data.token);
-                localStorage.setItem("adminId", data._id);
-                localStorage.setItem("adminName", data.name);
-                localStorage.setItem("adminEmail", data.email);
+      <div className="relative z-10 w-full max-w-md">
 
-                toast.success("✅ Login successful! Redirecting...");
+        {/* Card */}
+        <div className="bg-surface-card/97 border border-[rgba(212,175,55,0.12)] backdrop-blur-xl
+                        p-10 md:p-12 shadow-luxury">
 
-                // Redirect to admin dashboard after short delay
-                setTimeout(() => {
-                    window.location.href = "/admin";
-                }, 1000);
-            } else {
-                toast.error("❌ No token received from server");
-                setIsLoading(false);
-            }
-        } catch (error: any) {
-            console.error("Login error:", error);
-            const errorMessage =
-                error.response?.data?.message ||
-                error.message ||
-                "Login failed. Please check your credentials.";
-            toast.error(`❌ ${errorMessage}`);
-            setIsLoading(false);
-        }
-    };
+          {/* Brand Header */}
+          <div className="text-center mb-10">
+            <Crown size={30} className="text-accent mx-auto mb-4" strokeWidth={1} />
+            <h1 className="font-display text-[1.5rem] font-light text-foreground tracking-[0.08em] mb-1">
+              Daddy Wealth Hotel
+            </h1>
+            <p className="font-body text-[0.58rem] font-semibold uppercase tracking-[0.45em] text-accent mb-4">
+              &amp; Suites
+            </p>
+            <div className="gold-divider mb-4" />
+            <p className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-text-muted">
+              Administration Portal
+            </p>
+          </div>
 
-    return (
-        <div className="min-h-screen bg-black flex items-center justify-center p-6 relative overflow-hidden">
-            <Toaster
-                position="top-center"
-                toastOptions={{
-                    style: { background: "#111", color: "#fff", border: "1px solid #333" },
-                    duration: 4000,
-                }}
-            />
+          {/* Form */}
+          <form onSubmit={handleSubmit} className="space-y-5">
 
-            {/* Background Gradient */}
-            <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-transparent" />
-
-            <div className="w-full max-w-md relative z-10">
-                {/* Login Card */}
-                <div className="bg-[#0a0a0a]/90 backdrop-blur-md border border-white/10 rounded-lg p-10 shadow-2xl">
-                    {/* Header */}
-                    <div className="text-center mb-10">
-                        <h1 className="text-3xl font-serif text-accent tracking-widest uppercase mb-2">
-                            Fordham Suites
-                            <span className="text-white">.</span>
-                        </h1>
-                        <p className="text-xs uppercase tracking-widest text-gray-500 font-semibold">
-                            Admin Portal
-                        </p>
-                    </div>
-
-                    {/* Login Form */}
-                    <form onSubmit={handleSubmit} className="space-y-6">
-                        {/* Email Input */}
-                        <div>
-                            <label className="block text-xs uppercase tracking-wider text-gray-400 mb-3 font-semibold">
-                                Email Address
-                            </label>
-                            <input
-                                type="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                placeholder="admin@example.com"
-                                required
-                                disabled={isLoading}
-                                autoFocus
-                                className="w-full bg-[#141414] border border-white/10 text-white p-4 rounded focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/50 transition-all placeholder-gray-600 disabled:opacity-50"
-                            />
-                        </div>
-
-                        {/* Password Input */}
-                        <div>
-                            <label className="block text-xs uppercase tracking-wider text-gray-400 mb-3 font-semibold">
-                                Password
-                            </label>
-                            <input
-                                type="password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                placeholder="Enter your password"
-                                required
-                                disabled={isLoading}
-                                className="w-full bg-[#141414] border border-white/10 text-white p-4 rounded focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/50 transition-all placeholder-gray-600 disabled:opacity-50"
-                            />
-                        </div>
-
-                        {/* Submit Button */}
-                        <button
-                            type="submit"
-                            disabled={isLoading}
-                            className="w-full bg-accent text-black font-semibold py-4 uppercase tracking-widest text-sm rounded hover:bg-white hover:shadow-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-                        >
-                            {isLoading ? (
-                                <>
-                                    <Loader2 className="w-5 h-5 animate-spin" />
-                                    Authenticating...
-                                </>
-                            ) : (
-                                "Sign In"
-                            )}
-                        </button>
-                    </form>
-
-                    {/* Footer */}
-                    <div className="mt-8 pt-6 border-t border-white/5 text-center">
-                        <p className="text-xs text-gray-500">
-                            🔐 Secure admin login. Your credentials are encrypted.
-                        </p>
-                    </div>
-                </div>
-
-                {/* Info Box */}
-                <div className="mt-8 bg-blue-500/10 border border-blue-500/20 rounded-lg p-4 text-center">
-                    <p className="text-xs text-blue-300">
-                        Demo: Use your admin email and password
-                    </p>
-                </div>
+            <div>
+              <label className="block font-body text-[0.58rem] font-semibold uppercase tracking-[0.35em] text-text-muted mb-2">
+                Email Address
+              </label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="admin@daddywealthhotel.com"
+                required
+                autoFocus
+                disabled={isLoading}
+                className="w-full bg-surface-dark border border-[rgba(212,175,55,0.1)] text-foreground
+                           px-4 py-3.5 font-body text-[0.82rem] font-light placeholder:text-text-muted
+                           focus:outline-none focus:border-accent transition-colors duration-300
+                           disabled:opacity-50"
+              />
             </div>
+
+            <div>
+              <label className="block font-body text-[0.58rem] font-semibold uppercase tracking-[0.35em] text-text-muted mb-2">
+                Password
+              </label>
+              <div className="relative">
+                <input
+                  type={showPass ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter admin password"
+                  required
+                  disabled={isLoading}
+                  className="w-full bg-surface-dark border border-[rgba(212,175,55,0.1)] text-foreground
+                             px-4 py-3.5 pr-11 font-body text-[0.82rem] font-light placeholder:text-text-muted
+                             focus:outline-none focus:border-accent transition-colors duration-300
+                             disabled:opacity-50"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPass((v) => !v)}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted hover:text-accent transition-colors"
+                  aria-label="Toggle password visibility"
+                >
+                  {showPass ? <EyeOff size={14} strokeWidth={1.5} /> : <Eye size={14} strokeWidth={1.5} />}
+                </button>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="btn-luxury-filled w-full py-4 text-[0.63rem] flex items-center justify-center gap-3
+                         disabled:opacity-40 disabled:cursor-not-allowed mt-3"
+            >
+              {isLoading ? (
+                <><Loader2 size={14} className="animate-spin" /> Authenticating…</>
+              ) : (
+                <><span>Sign In to Dashboard</span><ArrowRight size={12} /></>
+              )}
+            </button>
+          </form>
+
+          {/* Footer */}
+          <div className="mt-8 pt-6 border-t border-[rgba(212,175,55,0.07)] text-center">
+            <p className="font-body text-[0.68rem] font-light text-text-faint">
+              🔐 Secure encrypted login — Daddy Wealth Hotel and Suites
+            </p>
+          </div>
         </div>
-    );
+
+        <p className="text-center font-body text-[0.65rem] font-light text-white/15 mt-6 tracking-wide">
+          &copy; {new Date().getFullYear()} Daddy Wealth Hotel and Suites. Restricted access.
+        </p>
+      </div>
+    </div>
+  );
 }

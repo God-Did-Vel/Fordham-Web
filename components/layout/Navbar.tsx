@@ -2,128 +2,162 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
-import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { Menu, X, Crown } from "lucide-react";
+
+const navLinks = [
+  { href: "/",          label: "Home"          },
+  { href: "/rooms",     label: "Rooms & Suites" },
+  { href: "/spa",       label: "Wellness & Spa"  },
+  { href: "/gallery",   label: "Gallery"         },
+  { href: "/login",     label: "Sign In"          },
+];
 
 export default function Navbar() {
-    const [isOpen, setIsOpen] = useState(false);
-    const [scrolled, setScrolled] = useState(false);
+  const [isOpen,   setIsOpen]   = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
 
-    useEffect(() => {
-        const handleScroll = () => {
-            setScrolled(window.scrollY > 50);
-        };
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 60);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
-    const navLinks = [
-        { href: "/", label: "Home" },
-        { href: "/rooms", label: "Rooms & Suites" },
-        { href: "/gallery", label: "Gallery" },
-        { href: "/login", label: "Sign In" },
-    ];
+  /* Close mobile menu on route change */
+  useEffect(() => { setIsOpen(false); }, [pathname]);
 
-    return (
-        <nav
-            className={`fixed w-full z-50 transition-all duration-500 ${
-                scrolled
-                    ? "bg-black/90 backdrop-blur-md py-3 shadow-[0_4px_30px_rgba(0,0,0,0.5)]"
-                    : "bg-gradient-to-b from-black/60 to-transparent py-5"
-            }`}
-        >
-            <div className="max-w-7xl mx-auto px-6 lg:px-12 flex justify-between items-center">
+  return (
+    <nav
+      className={`fixed w-full z-[500] transition-all duration-700 ${
+        scrolled
+          ? "bg-[rgba(5,4,3,0.97)] backdrop-blur-xl py-3 shadow-nav border-b border-[rgba(212,175,55,0.06)]"
+          : "bg-gradient-to-b from-[rgba(3,3,2,0.7)] to-transparent py-6"
+      }`}
+    >
+      <div className="max-w-[1320px] mx-auto px-6 lg:px-16 flex items-center justify-between">
 
-                {/* Logo */}
-                <Link href="/" className="flex items-center group">
-                    <div className="relative flex items-center">
-                        <Image
-                            src="https://res.cloudinary.com/duweg8kpv/image/upload/v1774293111/fordham-removebg-preview_wtipq2.png"
-                            alt="Fordham Suites"
-                            width={160}
-                            height={60}
-                            className={`w-auto object-contain transition-all duration-500 ${
-                                scrolled ? "h-10 md:h-12" : "h-12 md:h-16"
-                            }`}
-                            priority
-                        />
-                    </div>
-                </Link>
-
-                {/* Desktop Menu */}
-               <div className="hidden md:flex items-center space-x-4 lg:space-x-5">
-                    {navLinks.map((link) => (
-                        <Link
-                            key={link.href}
-                            href={link.href}
-                            className="relative text-[10px] lg:text-[11px] font-semibold uppercase tracking-[0.15em] text-white/90 hover:text-[#c8a97e] transition-colors duration-300 after:absolute after:left-0 after:-bottom-1 after:h-[1px] after:w-0 after:bg-[#c8a97e] after:transition-all after:duration-300 hover:after:w-full whitespace-nowrap"
-                        >
-                            {link.label}
-                        </Link>
-                    ))}
-
-                    {/* Divider */}
-                    <div className="h-4 w-px bg-[#d4af37]" />
-
-                    {/* Book Now CTA */}
-                    <Link
-                        href="/book"
-                        className="relative overflow-hidden border border-[#d4af37] text-[#d4af37] font-semibold px-7 py-2.5 uppercase tracking-[0.2em] text-[11px] transition-all duration-300 hover:text-black group"
-                    >
-                        <span className="absolute inset-0 bg-[#d4af37] translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-                        <span className="relative z-10">Book Now</span>
-                    </Link>
-                </div>
-
-                {/* Mobile Menu Button */}
-                <button
-                    onClick={() => setIsOpen(!isOpen)}
-                    className="md:hidden text-white hover:text-[#c8a97e] transition-colors focus:outline-none"
-                    aria-label="Toggle menu"
-                >
-                    {isOpen ? <X size={26} /> : <Menu size={26} />}
-                </button>
-            </div>
-
-            {/* Mobile Menu Dropdown */}
-            <div
-                className={`md:hidden absolute top-full left-0 w-full bg-black/95 backdrop-blur-md flex flex-col items-center py-10 space-y-7 transition-all duration-300 ${
-                    isOpen
-                        ? "opacity-100 translate-y-0 pointer-events-auto"
-                        : "opacity-0 -translate-y-4 pointer-events-none"
-                }`}
+        {/* ── Logo / Brand ── */}
+        <Link href="/" className="group flex flex-col items-start leading-none select-none">
+          <span className="flex items-center gap-2">
+            <Crown
+              size={14}
+              className="text-accent mb-0.5 group-hover:text-accent-bright transition-colors duration-300"
+              strokeWidth={1.5}
+            />
+            <span
+              className="text-[0.6rem] font-body font-semibold tracking-[0.45em] uppercase text-accent
+                         group-hover:text-accent-bright transition-colors duration-300"
             >
-                {/* Mobile Logo */}
-                <Image
-                    src="https://res.cloudinary.com/duweg8kpv/image/upload/v1774293111/fordham-removebg-preview_wtipq2.png"
-                    alt="Fordham Suites"
-                    width={120}
-                    height={45}
-                    className="h-10 w-auto object-contain mb-2"
-                />
+              Est. 2024
+            </span>
+          </span>
+          <span
+            className="font-display text-[1.15rem] md:text-[1.3rem] font-light tracking-[0.12em] text-foreground
+                       group-hover:text-accent-pale transition-colors duration-500 leading-tight mt-0.5 whitespace-nowrap"
+          >
+            Daddy Wealth Hotel
+          </span>
+          <span
+            className="font-display text-[0.7rem] md:text-[0.75rem] font-light tracking-[0.35em] uppercase
+                       text-accent group-hover:text-accent-bright transition-colors duration-500 leading-tight"
+          >
+            &amp; Suites
+          </span>
+        </Link>
 
-                {/* Divider */}
-                <div className="w-16 h-px bg-[#c8a97e]/40" />
+        {/* ── Desktop Links ── */}
+        <div className="hidden md:flex items-center gap-6 lg:gap-8">
+          {navLinks.map((link) => {
+            const active = pathname === link.href;
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`relative text-[0.62rem] font-body font-semibold uppercase tracking-[0.22em]
+                            transition-colors duration-300 whitespace-nowrap
+                            after:absolute after:left-0 after:-bottom-1 after:h-px after:bg-accent
+                            after:transition-all after:duration-400
+                            ${active
+                              ? "text-accent after:w-full"
+                              : "text-white/75 hover:text-accent after:w-0 hover:after:w-full"
+                            }`}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
 
-                {navLinks.map((link) => (
-                    <Link
-                        key={link.href}
-                        href={link.href}
-                        onClick={() => setIsOpen(false)}
-                        className="text-sm uppercase tracking-[0.3em] text-white/80 hover:text-[#c8a97e] transition-colors duration-300"
-                    >
-                        {link.label}
-                    </Link>
-                ))}
+          {/* Divider */}
+          <div className="h-5 w-px bg-accent/20" />
 
-                <Link
-                    href="/book"
-                    onClick={() => setIsOpen(false)}
-                    className="mt-2 border border-[#c8a97e] text-[#c8a97e] px-10 py-3 uppercase tracking-[0.2em] text-xs hover:bg-[#c8a97e] hover:text-black transition-all duration-300"
-                >
-                    Book Now
-                </Link>
-            </div>
-        </nav>
-    );
+          {/* Book Now CTA */}
+          <Link
+            href="/book"
+            className="btn-luxury text-[0.6rem] px-6 py-2.5"
+          >
+            <span>Book Now</span>
+          </Link>
+        </div>
+
+        {/* ── Mobile Toggle ── */}
+        <button
+          onClick={() => setIsOpen((v) => !v)}
+          className="md:hidden text-white/80 hover:text-accent transition-colors duration-300 focus:outline-none p-1"
+          aria-label="Toggle navigation menu"
+          aria-expanded={isOpen}
+        >
+          {isOpen ? <X size={22} strokeWidth={1.5} /> : <Menu size={22} strokeWidth={1.5} />}
+        </button>
+      </div>
+
+      {/* ── Mobile Drawer ── */}
+      <div
+        className={`md:hidden absolute top-full left-0 w-full
+                    bg-[rgba(5,4,3,0.98)] backdrop-blur-2xl border-t border-[rgba(212,175,55,0.08)]
+                    flex flex-col items-center py-12 gap-8
+                    transition-all duration-500 ease-luxury
+                    ${isOpen
+                      ? "opacity-100 translate-y-0 pointer-events-auto"
+                      : "opacity-0 -translate-y-3 pointer-events-none"
+                    }`}
+      >
+        {/* Mobile Brand */}
+        <div className="flex flex-col items-center gap-1">
+          <Crown size={20} className="text-accent" strokeWidth={1} />
+          <p className="font-display text-xl font-light tracking-[0.15em] text-foreground mt-1">
+            Daddy Wealth Hotel
+          </p>
+          <p className="font-body text-[0.65rem] font-semibold tracking-[0.45em] uppercase text-accent">
+            &amp; Suites
+          </p>
+        </div>
+
+        {/* Gold thin line */}
+        <div className="w-12 h-px bg-gradient-to-r from-transparent via-accent to-transparent" />
+
+        {/* Links */}
+        {navLinks.map((link) => (
+          <Link
+            key={link.href}
+            href={link.href}
+            onClick={() => setIsOpen(false)}
+            className="text-[0.7rem] font-body font-semibold uppercase tracking-[0.35em]
+                       text-white/70 hover:text-accent transition-colors duration-300"
+          >
+            {link.label}
+          </Link>
+        ))}
+
+        {/* Book CTA */}
+        <Link
+          href="/book"
+          onClick={() => setIsOpen(false)}
+          className="btn-luxury text-[0.65rem] px-10 py-3 mt-2"
+        >
+          <span>Reserve Now</span>
+        </Link>
+      </div>
+    </nav>
+  );
 }
